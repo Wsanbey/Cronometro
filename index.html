@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronometro</title>
+
+    <script>
+        var contadorH = 1;
+        var contadorM = 1;
+        var contadorS = 1;
+        var interval;
+        var ativo = true;
+
+
+        function marcaHoras() {
+
+            let horas = document.getElementById("horas");
+
+            if (contadorH < 10) {
+                horas.innerHTML = "0" + contadorH++;
+            } else {
+                horas.innerHTML = contadorH++;
+            }
+
+            if (contadorH > 60) {
+                contadorH = 0;
+                horas.innerHTML = "0" + contadorH++;
+            }
+        }
+
+        function marcaMinutos() {
+
+            let minutos = document.getElementById("minutos");
+
+            if (contadorM < 10) {
+                minutos.innerHTML = "0" + contadorM++;
+            } else {
+                minutos.innerHTML = contadorM++;
+            }
+
+            if (contadorM > 59) {
+                contadorM = 0;
+                minutos.innerHTML = "0" + contadorM++;
+                marcaHoras();
+            }
+        }
+
+        function marcaSegundos() {
+
+            let segundos = document.getElementById("segundos");
+
+            if (contadorS < 10) {
+                segundos.innerHTML = "0" + contadorS++;
+            } else {
+                segundos.innerHTML = contadorS++;
+            }
+
+            if (contadorS > 59) {
+                contadorS = 0;
+                segundos.innerHTML = "0" + contadorS++;
+                marcaMinutos();
+            }
+
+        }
+
+        function iniciarCronometro() {
+
+            if(ativo === true){
+                interval = setInterval(marcaSegundos, 1000);
+            }
+            
+            ativo = false;
+
+        }
+
+        function pararCronometro() {
+            clearInterval(interval);
+            ativo = true;
+
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <div class="display">
+        <h1 id="horas">00</h1>
+        <h1 id="minutos">00</h1>
+        <h1 id="segundos">00</h1>
+    </div>
+    <input onclick="pararCronometro()" type="submit" value="Parar">
+    <input id= "Bt-Start-Pause" onclick="iniciarCronometro()" type="submit" value="Iniciar">
+
+
+</body>
+
+</html>
